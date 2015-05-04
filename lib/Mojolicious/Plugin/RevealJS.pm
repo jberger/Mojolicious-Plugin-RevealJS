@@ -29,7 +29,7 @@ sub register {
   #}
 
   $app->helper('include_code' => \&_include_code);
-  $app->helper('reveal.export' => \&_export);
+  $app->helper('revealjs.export' => \&_export);
 }
 
 sub _include_code {
