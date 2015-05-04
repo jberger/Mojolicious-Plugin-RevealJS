@@ -1,0 +1,5 @@
+Mojolicious::Plugin::RevealJS is copyright (c) 2015 Joel Berger
+This plugin is released under the same terms as Perl itself.
+
+Additionally it bundles RevealJS version 3.0.0 which has its own terms of release.
+The code and terms can be found at https://github.com/hakimel/reveal.js
