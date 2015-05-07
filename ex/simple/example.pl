@@ -2,7 +2,7 @@ use Mojolicious::Lite;
 
 plugin 'RevealJS';
 
-any '/' => { template => 'mytalk' };
+any '/' => { template => 'mytalk', layout => 'revealjs' };
 
 app->start;
 
