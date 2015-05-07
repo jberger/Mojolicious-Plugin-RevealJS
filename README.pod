@@ -29,6 +29,13 @@ The author makes no compatibilty promises.
 
 =head1 LAYOUTS
 
+  # controller
+  $c->layout('revealjs'); # or
+  $c->stash(layout => 'revealjs');
+
+  # or template
+  % layout 'revealjs';
+
 =head2 revealjs
 
 This layout is essentially the standard template distributed as part of the Reveal.js tarball.
