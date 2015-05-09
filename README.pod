@@ -18,7 +18,7 @@ Mojolicious::Plugin::RevealJS - Mojolicious ❤️ Reveal.js
 
 L<Mojolicious::Plugin::RevealJS> is yet another attempt at making presentations with L<Mojolicious>.
 While the author's previous attempts have tried do too much, this one simply makes it easier to use L<Reveal.js|http://lab.hakim.se/reveal-js>.
-It provides a layout (C<revealjs>) which contains the boilderplate and loads the bundled libraries.
+It provides a layout (C<revealjs>) which contains the boilerplate and loads the bundled libraries.
 It also provides a few simple helpers.
 Future versions of the plugin will allow setting of configuration like themes.
 
