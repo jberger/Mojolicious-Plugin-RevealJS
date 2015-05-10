@@ -15,8 +15,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
 		<link rel="stylesheet" href="revealjs/css/reveal.css">
-    <!-- TODO: theme via config or stash -->
-		<link rel="stylesheet" href="revealjs/css/theme/black.css" id="theme">
+    <%
+      my $theme = stash('theme') || 'black';
+      $theme = "revealjs/css/theme/$theme.css" unless $theme =~ /\.css$/;
+    %>
+    %= stylesheet $theme, id => 'theme'
 
 		<!-- Code syntax highlighting -->
 		<link rel="stylesheet" href="revealjs/lib/css/zenburn.css">
@@ -33,6 +36,8 @@
 		<!--[if lt IE 9]>
 		<script src="revealjs/lib/js/html5shiv.js"></script>
 		<![endif]-->
+
+    %= include 'revealjs_head'
 	</head>
 
 	<body>
@@ -59,9 +64,9 @@
           %{ stash('init')          || {} },
         );
       %>
-      var opts = <%== Mojo::JSON::to_json(\%opts) %>;
+      var init = <%== Mojo::JSON::to_json(\%opts) %>;
 			// Optional reveal.js plugins
-      opts.dependencies = [
+      init.dependencies = [
         { src: 'revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
         { src: 'revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
         { src: 'revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
@@ -69,9 +74,12 @@
         { src: 'revealjs/plugin/zoom-js/zoom.js', async: true },
         { src: 'revealjs/plugin/notes/notes.js', async: true }
       ];
-			Reveal.initialize(opts);
+
+      %= include 'revealjs_preinit', format => 'js'
+			Reveal.initialize(init);
 
 		</script>
 
+    %= include 'revealjs_body'
 	</body>
 </html>
