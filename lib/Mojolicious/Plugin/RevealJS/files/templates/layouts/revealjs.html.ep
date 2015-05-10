@@ -55,12 +55,13 @@
 			// Full list of configuration options available at:
 			// https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
+        controls: <%= $c->revealjs->dstash(controls => 1) ? 'true' : 'false' %>,
+        progress: <%= $c->revealjs->dstash(progress => 1) ? 'true' : 'false' %>,
+        history:  <%= $c->revealjs->dstash(history  => 1) ? 'true' : 'false' %>,
+        center:   <%= $c->revealjs->dstash(center   => 1) ? 'true' : 'false' %>,
 
-				transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // none/fade/slide/convex/concave/zoom
+        transition: '<%= stash('transition') || 'slide'  %>',
 
 				// Optional reveal.js plugins
 				dependencies: [

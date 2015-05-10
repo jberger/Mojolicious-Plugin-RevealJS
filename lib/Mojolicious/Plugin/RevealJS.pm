@@ -29,6 +29,7 @@ sub register {
   #}
 
   $app->helper('include_code' => \&_include_code);
+  $app->helper('revealjs.dstash' => \&_dstash);
   $app->helper('revealjs.export' => \&_export);
 }
 
@@ -42,6 +43,12 @@ sub _include_code {
     <p style="float: right; text-color: white; font-size: small;"><%= $file %></p>
   INCLUDE
   return b $html;
+}
+
+sub _dstash {
+  my ($c, $name, $default) = @_;
+  my $stash = $c->stash;
+  return exists($stash->{$name}) ? $stash->{$name} : $default;
 }
 
 sub _export {
@@ -103,7 +110,43 @@ The author makes no compatibilty promises.
 This layout is essentially the standard template distributed as part of the Reveal.js tarball.
 It is modified for use in a Mojolicious template.
 
-It accepts the stash parameters C<title>, C<author> and C<description> which set the header (metadata) values you would expect.
+It accepts the stash parameters:
+
+=over
+
+=item * 
+
+author - sets the metadata value
+
+=item *
+
+center - enable slide centering (boolean, true by default)
+
+=item *
+
+controls - enable controls (boolean, true by default)
+
+=item *
+
+description - sets the metadata value
+
+=item *
+
+history - enable history (boolean, true by default)
+
+=item *
+
+progress - enable progress indicator (boolean, true by default)
+
+=item *
+
+transition - set the slide transition type (one of: none, fade, slide, convex, concave, zoom; default: slide)
+
+=item *
+
+title - sets the window title, not used on the title slide
+
+=back
 
 =head1 HELPERS
 
@@ -138,6 +181,12 @@ displays the relative path to the location of the file (for the benefit of repo 
 =back
 
 At this point very little of it is configurable and that is likely to change (possibly incompatibly)
+
+=head2 revealjs->dstash
+
+  $c->revealjs->dstash(name => 'default');
+
+Gets a value out of a stash if it exists or use the default otherwise.
 
 =head2 revealjs->export
 
