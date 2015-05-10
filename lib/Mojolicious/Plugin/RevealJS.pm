@@ -114,9 +114,27 @@ It accepts the stash parameters:
 
 =over
 
-=item * 
+=item *
 
 author - sets the metadata value
+
+=item *
+
+description - sets the metadata value
+
+=item *
+
+init - Reveal.js initialization options, a hashref for JSON conversion documented below
+
+=item *
+
+title - sets the window title, not used on the title slide
+
+=back
+
+Some RevealJS initialization options, specifically those that have a default are:
+
+=over
 
 =item *
 
@@ -125,10 +143,6 @@ center - enable slide centering (boolean, true by default)
 =item *
 
 controls - enable controls (boolean, true by default)
-
-=item *
-
-description - sets the metadata value
 
 =item *
 
@@ -142,11 +156,10 @@ progress - enable progress indicator (boolean, true by default)
 
 transition - set the slide transition type (one of: none, fade, slide, convex, concave, zoom; default: slide)
 
-=item *
-
-title - sets the window title, not used on the title slide
-
 =back
+
+Note that booleans are references to scalar values, C<true == \1>, C<false == \0>.
+See more availalbe options on the L<"Reveal.js page"|https://github.com/hakimel/reveal.js#configuration>.
 
 =head1 HELPERS
 

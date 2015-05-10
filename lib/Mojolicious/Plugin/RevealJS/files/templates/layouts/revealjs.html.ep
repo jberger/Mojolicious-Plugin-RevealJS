@@ -50,29 +50,30 @@
 		<script src="revealjs/js/reveal.js"></script>
 
 		<script>
-      //TODO: make this somehow configurable via config/stash
-
 			// Full list of configuration options available at:
 			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-        controls: <%= $c->revealjs->dstash(controls => 1) ? 'true' : 'false' %>,
-        progress: <%= $c->revealjs->dstash(progress => 1) ? 'true' : 'false' %>,
-        history:  <%= $c->revealjs->dstash(history  => 1) ? 'true' : 'false' %>,
-        center:   <%= $c->revealjs->dstash(center   => 1) ? 'true' : 'false' %>,
-
-        // none/fade/slide/convex/concave/zoom
-        transition: '<%= stash('transition') || 'slide'  %>',
-
-				// Optional reveal.js plugins
-				dependencies: [
-					{ src: 'revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'revealjs/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'revealjs/plugin/zoom-js/zoom.js', async: true },
-					{ src: 'revealjs/plugin/notes/notes.js', async: true }
-				]
-			});
+      <%
+        require Mojo::JSON;
+        my %opts = (
+          controls => \1,
+          progress => \1,
+          history  => \1,
+          center   => \1,
+          transition => 'slide', #none/fade/slide/convex/concave/zoom
+          %{ stash('init') || {} },
+        );
+      %>
+      var opts = <%== Mojo::JSON::to_json(\%opts) %>;
+			// Optional reveal.js plugins
+      opts.dependencies = [
+        { src: 'revealjs/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        { src: 'revealjs/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: 'revealjs/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: 'revealjs/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: 'revealjs/plugin/zoom-js/zoom.js', async: true },
+        { src: 'revealjs/plugin/notes/notes.js', async: true }
+      ];
+			Reveal.initialize(opts);
 
 		</script>
 

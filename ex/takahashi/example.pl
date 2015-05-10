@@ -4,7 +4,8 @@ plugin 'RevealJS';
 
 helper line => sub { shift->tag(span => class => slabtext => @_ ) };
 
-any '/' => { template => 'mytalk', layout => 'revealjs', transition => 'none', progress => 0 };
+my $init = { transition => 'none', progress => 0 };
+any '/' => { template => 'mytalk', layout => 'revealjs', init => $init };
 
 app->start;
 
