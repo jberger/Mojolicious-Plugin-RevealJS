@@ -131,12 +131,6 @@ displays the relative path to the location of the file (for the benefit of repo 
 
 At this point very little of it is configurable and that is likely to change (possibly incompatibly)
 
-=head2 revealjs->dstash
-
-  $c->revealjs->dstash(name => 'default');
-
-Gets a value out of a stash if it exists or use the default otherwise.
-
 =head2 revealjs->export
 
   $ ./myapp.pl eval 'app->revealjs->export("/" => "path/")'

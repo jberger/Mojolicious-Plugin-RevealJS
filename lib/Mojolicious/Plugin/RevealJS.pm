@@ -32,7 +32,6 @@ sub register {
   });
 
   $app->helper('include_code' => \&_include_code);
-  $app->helper('revealjs.dstash' => \&_dstash);
   $app->helper('revealjs.export' => \&_export);
 }
 
@@ -46,12 +45,6 @@ sub _include_code {
     <p style="float: right; text-color: white; font-size: small;"><%= $file %></p>
   INCLUDE
   return b $html;
-}
-
-sub _dstash {
-  my ($c, $name, $default) = @_;
-  my $stash = $c->stash;
-  return exists($stash->{$name}) ? $stash->{$name} : $default;
 }
 
 sub _export {
@@ -202,12 +195,6 @@ displays the relative path to the location of the file (for the benefit of repo 
 =back
 
 At this point very little of it is configurable and that is likely to change (possibly incompatibly)
-
-=head2 revealjs->dstash
-
-  $c->revealjs->dstash(name => 'default');
-
-Gets a value out of a stash if it exists or use the default otherwise.
 
 =head2 revealjs->export
 
