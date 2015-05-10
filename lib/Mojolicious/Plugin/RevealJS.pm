@@ -23,10 +23,13 @@ sub register {
   push @{ $app->static->paths },   $home->rel_dir('public');
   push @{ $app->renderer->paths }, $home->rel_dir('templates');
 
-  #$conf->{layout} = 'revealjs' unless exists $conf->{layout};
-  #if (defined(my $layout = $conf->{layout})) {
-    #$app->defaults(layout => $layout);
-  #}
+  $app->defaults('revealjs.init' => {
+    controls => \1,
+    progress => \1,
+    history  => \1,
+    center   => \1,
+    transition => 'slide', #none/fade/slide/convex/concave/zoom
+  });
 
   $app->helper('include_code' => \&_include_code);
   $app->helper('revealjs.dstash' => \&_dstash);
@@ -157,6 +160,11 @@ progress - enable progress indicator (boolean, true by default)
 transition - set the slide transition type (one of: none, fade, slide, convex, concave, zoom; default: slide)
 
 =back
+
+These defaults are set in the default stash value for C<revealjs.init>.
+So they can be modified globally modifying that value (probably during setup).
+
+  $app->defaults->{'revealjs.init'}{transition} = 'none';
 
 Note that booleans are references to scalar values, C<true == \1>, C<false == \0>.
 See more availalbe options on the L<"Reveal.js page"|https://github.com/hakimel/reveal.js#configuration>.

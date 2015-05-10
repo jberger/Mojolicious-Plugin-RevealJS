@@ -55,12 +55,8 @@
       <%
         require Mojo::JSON;
         my %opts = (
-          controls => \1,
-          progress => \1,
-          history  => \1,
-          center   => \1,
-          transition => 'slide', #none/fade/slide/convex/concave/zoom
-          %{ stash('init') || {} },
+          %{ stash('revealjs.init') || {} },
+          %{ stash('init')          || {} },
         );
       %>
       var opts = <%== Mojo::JSON::to_json(\%opts) %>;
