@@ -1,5 +1,6 @@
 use strict;
 use warnings;
+use utf8;
 
 use 5.10.1;
 use Module::Build;
@@ -7,6 +8,7 @@ use Module::Build;
 my $builder = Module::Build->new(
   module_name => 'Mojolicious::Plugin::RevealJS',
   dist_author => 'Joel Berger',
+  dist_abstract => 'Mojolicious ❤️ Reveal.js',
   license => 'perl',
 
   requires => {

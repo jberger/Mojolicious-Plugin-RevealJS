@@ -1,5 +1,8 @@
 Revision history for Perl module Mojolicious::Plugin::RevealJS
 
+0.04 2015-06-07
+  - Corrected utf8 abstract
+
 0.03 2015-06-07
   - Added language handling to include_code
 
