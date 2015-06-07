@@ -1,5 +1,8 @@
 Revision history for Perl module Mojolicious::Plugin::RevealJS
 
+0.03 2015-06-07
+  - Added language handling to include_code
+
 0.02 2015-05-10
   - Significantly improve customization possibilities
   - Added an example of takahashi style presentations

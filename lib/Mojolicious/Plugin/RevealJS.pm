@@ -2,7 +2,7 @@ package Mojolicious::Plugin::RevealJS;
 
 use Mojo::Base 'Mojolicious::Plugin';
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 $VERSION = eval $VERSION;
 
 use Mojo::Home;
@@ -36,10 +36,11 @@ sub register {
 }
 
 sub _include_code {
-  my ($c, $file) = @_;
-  my $html = $c->render_to_string(inline => <<'  INCLUDE', file => $file);
+  my ($c, $file) = (shift, shift);
+  my $html = $c->render_to_string(inline => <<'  INCLUDE', 'revealjs.private.file' => $file, @_);
     % require Mojo::Util;
-    <pre><code class="perl" data-trim>
+    % my $file = stash 'revealjs.private.file';
+    <pre><code class="<%= stash('language') // 'perl' %>" data-trim>
       <%= Mojo::Util::slurp(app->home->rel_file($file)) =%>
     </code></pre>
     <p style="float: right; text-color: white; font-size: small;"><%= $file %></p>
@@ -208,11 +209,15 @@ This helper does several things:
 
 =item *
 
+localizes trailing arguments into the stash
+
+=item *
+
 slurps a section of code
 
 =item *
 
-sets the language (currently sets the format to perl, though this is likely to change)
+sets the language to the value of C<< stash('language') // 'perl' >>
 
 =item *
 

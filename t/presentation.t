@@ -22,7 +22,9 @@ $t->get_ok('/')
   ->element_exists('meta[name="description"][content="Everybody ❤️ Mojolicious"]')
   ->text_is('.reveal .slides section:nth-child(1) h1' => 'A Mojolicious Hello World!')
   ->text_like('.reveal .slides section:nth-child(2) pre code.perl' => qr/use Mojolicious::Lite;/)
-  ->text_is('.reveal .slides section:nth-child(2) p' => 'code/hello.pl');
+  ->text_is('.reveal .slides section:nth-child(2) p' => 'code/hello.pl')
+  ->element_exists('.reveal .slides pre code.html', 'language class applied')
+  ->element_exists_not('.reveal .slides pre code.html #raw', 'contents of included files are html escaped');
 
 done_testing;
 
@@ -37,4 +39,8 @@ __DATA__
 <section>
   %= include_code 'code/hello.pl'
 </section>
+
+<section>
+  %= include_code 'code/raw.html', language => 'html'
+<section>
 

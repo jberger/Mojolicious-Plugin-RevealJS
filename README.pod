@@ -143,11 +143,15 @@ This helper does several things:
 
 =item *
 
+localizes trailing arguments into the stash
+
+=item *
+
 slurps a section of code
 
 =item *
 
-sets the language (currently sets the format to perl, though this is likely to change)
+sets the language to the value of C<< stash('language') // 'perl' >>
 
 =item *
 
