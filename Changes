@@ -1,5 +1,8 @@
 Revision history for Perl module Mojolicious::Plugin::RevealJS
 
+0.05 2015-06-11
+  - Added missing prereq on File::ShareDir
+
 0.04 2015-06-07
   - Corrected utf8 abstract
 

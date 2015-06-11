@@ -15,6 +15,7 @@ my $builder = Module::Build->new(
     'perl' => '5.10.1',
     'Mojolicious' => '6.0',  # just a start
     'File::Copy::Recursive' => 0,
+    'File::ShareDir' => 0,
   },
   configure_requires => {
     'Module::Build' => 0.38,
