@@ -33,8 +33,13 @@ $t->get_ok('/')
   ->text_is('.reveal .slides section:nth-child(1) h1' => 'A Mojolicious Hello World!')
   ->text_like('.reveal .slides section:nth-child(2) pre code.perl' => qr/use Mojolicious::Lite;/)
   ->text_is('.reveal .slides section:nth-child(2) p' => 'code/hello.pl')
+  ->text_is('.reveal .slides section:nth-child(3) p' => 'code/raw.html')
   ->element_exists('.reveal .slides pre code.html', 'language class applied')
-  ->element_exists_not('.reveal .slides pre code.html #raw', 'contents of included files are html escaped');
+  ->element_exists_not('.reveal .slides pre code.html #raw', 'contents of included files are html escaped')
+  ->text_is('.reveal .slides section#section-test p' => 'code/section.pl')
+  ->text_unlike('.reveal .slides section#section-test code' => qr/use/)
+  ->text_like('.reveal .slides section#section-test code' => qr/\$this/)
+  ->text_unlike('.reveal .slides section#section-test code' => qr/die/);
 
 $t->get_ok('/reveal/nested_route')
   ->status_is(200)
@@ -58,4 +63,8 @@ __DATA__
 <section>
   %= include_code 'code/raw.html', language => 'html'
 <section>
+
+<section id="section-test">
+  %= include_code 'code/section.pl', section => 'mysection'
+</section>
 

@@ -33,16 +33,37 @@ sub register {
 }
 
 sub _include_code {
-  my ($c, $file) = (shift, shift);
-  my $html = $c->render_to_string(inline => <<'  INCLUDE', 'revealjs.private.file' => $file, @_);
-    % require Mojo::Util;
+  my ($c, $filename, %opts) = @_;
+  my $file = $c->stash->{'revealjs.private.files'}{$filename}
+    ||= $c->app->home->rel_file($filename)->slurp;
+  if (my $section = delete $opts{section}) {
+    my $chunk = _get_section($file, $section);
+    $file = $chunk if $chunk;
+  }
+  my $template = <<'  INCLUDE';
+    % my $text = stash 'revealjs.private.text';
     % my $file = stash 'revealjs.private.file';
     <pre><code class="<%= stash('language') // 'perl' %>" data-trim>
-      <%= app->home->rel_file($file)->slurp =%>
+      <%= $text =%>
     </code></pre>
     <p style="float: right; text-color: white; font-size: small;"><%= $file %></p>
   INCLUDE
+  my $html = $c->render_to_string(
+    inline => $template,
+    'revealjs.private.text' => $file,
+    'revealjs.private.file' => $filename,
+    %opts
+  );
   return b $html;
+}
+
+sub _get_section {
+  my ($text, $section) = @_;
+  my $comment = $1 if $text =~ m[^\s*(#+|-{2,}|/{2,})\s*reveal\s+begin\s+\Q$section]ms;
+  return undef unless $comment;
+  my @sections = split /^\s*\Q$comment\E\s*reveal\s+(?:begin|end)\s+\Q$section/ms, $text, 3;
+  return Mojo::Util::trim($sections[1]) if @sections > 1;
+  return undef;
 }
 
 sub _export {
