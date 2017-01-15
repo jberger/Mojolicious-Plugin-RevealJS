@@ -20,8 +20,8 @@ has home => sub {
 sub register {
   my ($plugin, $app, $conf) = @_;
   my $home = $plugin->home;
-  push @{ $app->static->paths },   $home->rel_dir('public');
-  push @{ $app->renderer->paths }, $home->rel_dir('templates');
+  push @{ $app->static->paths },   $home->rel_file('public');
+  push @{ $app->renderer->paths }, $home->rel_file('templates');
 
   $app->defaults('revealjs.init' => {
     controls => \1,
