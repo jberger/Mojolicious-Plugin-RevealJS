@@ -41,7 +41,7 @@ sub _include_code {
     % require Mojo::Util;
     % my $file = stash 'revealjs.private.file';
     <pre><code class="<%= stash('language') // 'perl' %>" data-trim>
-      <%= Mojo::Util::slurp(app->home->rel_file($file)) =%>
+      <%= Mojo::File::slurp(app->home->rel_file($file)) =%>
     </code></pre>
     <p style="float: right; text-color: white; font-size: small;"><%= $file %></p>
   INCLUDE
