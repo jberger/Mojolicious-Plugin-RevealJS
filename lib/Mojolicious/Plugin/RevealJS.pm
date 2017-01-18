@@ -44,7 +44,6 @@ sub _include_code {
     <pre><code class="<%= stash('language') // 'perl' %>" data-trim>
       <%= Mojo::File::slurp(app->home->rel_file($file)) =%>
     </code></pre>
-		<p><%= "file = $file" %></p>
     <p style="float: right; text-color: white; font-size: small;"><%= $file %></p>
   INCLUDE
   return b $html;
