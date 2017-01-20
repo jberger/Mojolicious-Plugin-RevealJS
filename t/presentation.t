@@ -13,6 +13,16 @@ get '/' => {
   description => 'Everybody ❤️ Mojolicious',
 };
 
+under '/reveal';
+
+get '/nested_route' => { 
+  template => 'hello_talk',
+  layout => 'revealjs',
+  title => 'Hello World!',
+  author => 'JBERGER',
+  description => 'Everybody ❤️ Mojolicious',
+};
+
 my $t = Test::Mojo->new;
 
 $t->get_ok('/')
@@ -25,6 +35,11 @@ $t->get_ok('/')
   ->text_is('.reveal .slides section:nth-child(2) p' => 'code/hello.pl')
   ->element_exists('.reveal .slides pre code.html', 'language class applied')
   ->element_exists_not('.reveal .slides pre code.html #raw', 'contents of included files are html escaped');
+
+$t->get_ok('/reveal/nested_route')
+  ->status_is(200)
+	->element_exists('link[href="/revealjs/css/reveal.css"]')
+	->element_exists('script[src="/revealjs/lib/js/head.min.js"]');
 
 done_testing;
 
