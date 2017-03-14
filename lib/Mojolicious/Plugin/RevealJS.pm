@@ -2,11 +2,12 @@ package Mojolicious::Plugin::RevealJS;
 
 use Mojo::Base 'Mojolicious::Plugin';
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 $VERSION = eval $VERSION;
 
 use Mojo::Home;
 use Mojo::ByteStream 'b';
+use Mojo::File;
 
 use File::Basename 'dirname';
 use File::Spec::Functions qw/rel2abs catdir/;
@@ -20,8 +21,8 @@ has home => sub {
 sub register {
   my ($plugin, $app, $conf) = @_;
   my $home = $plugin->home;
-  push @{ $app->static->paths },   $home->rel_dir('public');
-  push @{ $app->renderer->paths }, $home->rel_dir('templates');
+  push @{ $app->static->paths },   $home->child('public');
+  push @{ $app->renderer->paths }, $home->child('templates');
 
   $app->defaults('revealjs.init' => {
     controls => \1,
@@ -41,7 +42,7 @@ sub _include_code {
     % require Mojo::Util;
     % my $file = stash 'revealjs.private.file';
     <pre><code class="<%= stash('language') // 'perl' %>" data-trim>
-      <%= Mojo::Util::slurp(app->home->rel_file($file)) =%>
+      <%= app->home->rel_file($file)->slurp =%>
     </code></pre>
     <p style="float: right; text-color: white; font-size: small;"><%= $file %></p>
   INCLUDE
@@ -56,7 +57,7 @@ sub _export {
   File::Copy::Recursive::pathmk($to);
 
   my $body = $c->ua->get($page)->res->body;
-  Mojo::Util::spurt($body => File::Spec->catfile($to, 'index.html'));
+  Mojo::File->new($to)->child('index.html')->spurt($body);
   for my $path( @{ $c->app->static->paths } ) {
     dircopy($path, $to);
   }

@@ -13,7 +13,7 @@ my $builder = Module::Build->new(
 
   requires => {
     'perl' => '5.10.1',
-    'Mojolicious' => '6.0',  # just a start
+    'Mojolicious' => '7.15',  # Mojo::File
     'File::Copy::Recursive' => 0,
     'File::ShareDir' => 0,
   },
