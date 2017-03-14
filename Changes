@@ -1,5 +1,8 @@
 Revision history for Perl module Mojolicious::Plugin::RevealJS
 
+0.07 2017-03-13
+  - Convert to Module::Built::Tiny via App::ModuleBuildTiny
+
 0.06 2017-03-13
   - Use absolute paths for bundled files (mimosinnet)
   - Fix deprecated use of Mojo::Util functions

@@ -2,7 +2,7 @@ package Mojolicious::Plugin::RevealJS;
 
 use Mojo::Base 'Mojolicious::Plugin';
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 $VERSION = eval $VERSION;
 
 use Mojo::Home;
