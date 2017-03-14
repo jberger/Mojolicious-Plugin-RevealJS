@@ -1,5 +1,8 @@
 Revision history for Perl module Mojolicious::Plugin::RevealJS
 
+0.06 2017-03-13
+  - Use absolute paths for bundled files (mimosinnet)
+
 0.05 2015-06-11
   - Added missing prereq on File::ShareDir
 
