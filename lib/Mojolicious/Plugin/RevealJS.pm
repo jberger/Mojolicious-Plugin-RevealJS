@@ -10,13 +10,9 @@ use Mojo::ByteStream 'b';
 use Mojo::File;
 
 use File::Basename 'dirname';
-use File::Spec::Functions qw/rel2abs catdir/;
-use File::ShareDir 'dist_dir';
+use File::Share ();
 
-has home => sub {
-  my $checkout = catdir(dirname(rel2abs(__FILE__)), qw/RevealJS files/);
-  Mojo::Home->new(-d $checkout ? $checkout : dist_dir('Mojolicious-Plugin-RevealJS'));
-};
+has home => sub { Mojo::Home->new(File::Share::dist_dir('Mojolicious-Plugin-RevealJS')) };
 
 sub register {
   my ($plugin, $app, $conf) = @_;
