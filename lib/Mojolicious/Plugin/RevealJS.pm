@@ -36,10 +36,15 @@ sub _include_code {
   my ($c, $filename, %opts) = @_;
   my $file = $c->stash->{'revealjs.private.files'}{$filename}
     ||= $c->app->home->rel_file($filename)->slurp;
+  my $mark = qr'^\h*(?:#+|-{2,}|/{2,})\h*reveal'm;
+
   if (my $section = delete $opts{section}) {
-    my $chunk = _get_section($file, $section);
-    $file = $chunk if $chunk;
+    my @sections = split /$mark\h+(?:begin|end)\h+\Q$section\E\N*\R/ms, $file, 3;
+    $file = Mojo::Util::trim($sections[1]) if @sections > 1;
   }
+
+  $file =~ s/$mark\N*\R//mg;
+
   my $template = <<'  INCLUDE';
     % my $text = stash 'revealjs.private.text';
     % my $file = stash 'revealjs.private.file';
@@ -57,15 +62,6 @@ sub _include_code {
     %opts
   );
   return b $html;
-}
-
-sub _get_section {
-  my ($text, $section) = @_;
-  my $comment = $1 if $text =~ m[^\s*(#+|-{2,}|/{2,})\s*reveal\s+begin\s+\Q$section]ms;
-  return undef unless $comment;
-  my @sections = split /^\s*\Q$comment\E\s*reveal\s+(?:begin|end)\s+\Q$section/ms, $text, 3;
-  return Mojo::Util::trim($sections[1]) if @sections > 1;
-  return undef;
 }
 
 sub _export {
