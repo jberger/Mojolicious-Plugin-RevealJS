@@ -43,7 +43,8 @@ sub _include_code {
   my $template = <<'  INCLUDE';
     % my $text = stash 'revealjs.private.text';
     % my $file = stash 'revealjs.private.file';
-    <pre><code class="<%= stash('language') // 'perl' %>" data-trim>
+    % my $lang = stash 'revealjs.private.lang';
+    <pre><code class="<%= $lang %>" data-trim>
       <%= $text =%>
     </code></pre>
     <p style="float: right; text-color: white; font-size: small;"><%= $file %></p>
@@ -52,6 +53,7 @@ sub _include_code {
     inline => $template,
     'revealjs.private.text' => $file,
     'revealjs.private.file' => $filename,
+    'revealjs.private.lang' => delete($opts{language}) // $c->stash('language') // 'perl',
     %opts
   );
   return b $html;
