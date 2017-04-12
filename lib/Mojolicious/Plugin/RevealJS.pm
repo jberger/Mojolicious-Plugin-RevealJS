@@ -2,7 +2,7 @@ package Mojolicious::Plugin::RevealJS;
 
 use Mojo::Base 'Mojolicious::Plugin';
 
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 $VERSION = eval $VERSION;
 
 use Mojo::Home;
@@ -36,7 +36,7 @@ sub _include_code {
   my ($c, $filename, %opts) = @_;
   my $file = $c->stash->{'revealjs.private.files'}{$filename}
     ||= $c->app->home->rel_file($filename)->slurp;
-  my $mark = qr'^\h*(?:#+|-{2,}|/{2,})\h*reveal'm;
+  my $mark = qr'^\h*(?:#+|-{2,}|/{2,}|<!--)\h*reveal'm;
 
   if (my $section = delete $opts{section}) {
     my @sections = split /$mark\h+(?:begin|end)\h+\Q$section\E\N*\R/ms, $file, 3;
@@ -262,7 +262,7 @@ limits the section to a given section name
 
 NOTE: This feature is experimental!
 
-The section is definite by a line comment of the form C<#> or C<//> or C<--> followed by C<reveal begin $name> and ended with comment mark followed by C<reveal end $name>.
+The section is definite by a line comment of the form C<#> or C<//> or C<--> or C<< <!-- >> followed by C<reveal begin $name> and ended with comment mark followed by C<reveal end $name>.
 
   %= include_code 'path/to/file', section => 'part1'
 

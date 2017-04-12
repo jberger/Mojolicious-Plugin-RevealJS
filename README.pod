@@ -147,11 +147,7 @@ localizes trailing arguments into the stash
 
 =item *
 
-slurps a section of code
-
-=item *
-
-sets the language to the value of C<< stash('language') // 'perl' >>
+slurps a file containing code
 
 =item *
 
@@ -167,7 +163,36 @@ displays the relative path to the location of the file (for the benefit of repo 
 
 =back
 
-At this point very little of it is configurable and that is likely to change (possibly incompatibly)
+The helper takes a file name and additional key-value pairs.
+The following keys and their value are removed from the pairs, the remaining are localized into the stash:
+
+=over
+
+=item language
+
+sets the language for the highlighting, defaults to the value of C<< stash('language') // 'perl' >>
+
+=item section
+
+limits the section to a given section name
+
+=back
+
+NOTE: This feature is experimental!
+
+The section is definite by a line comment of the form C<#> or C<//> or C<--> or C<< <!-- >> followed by C<reveal begin $name> and ended with comment mark followed by C<reveal end $name>.
+
+  %= include_code 'path/to/file', section => 'part1'
+
+Then in the file
+
+  Excluded content
+
+  # reveal being part1
+  Included content
+  # reveal end part1
+
+  Excluded content
 
 =head2 revealjs->export
 
