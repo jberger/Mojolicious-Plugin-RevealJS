@@ -202,10 +202,21 @@ Then in the file
 
 =head2 revealjs->export
 
-  $ ./myapp.pl eval 'app->revealjs->export("/" => "path/")'
+  $ ./myapp.pl eval 'app->revealjs->export("/" => "path/", \%options)'
 
 Exports the rendered page and all of the files in the static directories to the designated path.
 This is very crude, but effective for usual cases.
+
+Allowed options are:
+
+=over
+
+=item base
+
+Override the base tag by removing the original and inserting a new one just inside the C<< <head> >> tag with the given value as the href target.
+This feature is cludgy (as is this whole helper), consider it experimental, its behavior may change.
+
+=back
 
 =head1 SOURCE REPOSITORY
 

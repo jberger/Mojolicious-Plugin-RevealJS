@@ -67,13 +67,25 @@ sub _include_code {
 }
 
 sub _export {
-  my ($c, $page, $to) = @_;
+  my ($c, $page, $to, $opts) = @_;
   require Mojo::Util;
   require File::Copy::Recursive;
   File::Copy::Recursive->import('dircopy');
   File::Copy::Recursive::pathmk($to);
 
   my $body = $c->ua->get($page)->res->body;
+
+  # handle munging the base tag
+  if (my $base = $opts->{base}) {
+    require Mojo::DOM;
+    require Mojo::Util;
+    $base = Mojo::Util::xml_escape($base);
+    my $dom = Mojo::DOM->new($body);
+    $dom->at('base')->remove;
+    $dom->at('head')->child_nodes->first->prepend(qq[<base href="$base">]);
+    $body = $dom->to_string;
+  }
+
   Mojo::File->new($to)->child('index.html')->spurt($body);
   for my $path( @{ $c->app->static->paths } ) {
     dircopy($path, $to);
@@ -286,10 +298,21 @@ Then in the file
 
 =head2 revealjs->export
 
-  $ ./myapp.pl eval 'app->revealjs->export("/" => "path/")'
+  $ ./myapp.pl eval 'app->revealjs->export("/" => "path/", \%options)'
 
 Exports the rendered page and all of the files in the static directories to the designated path.
 This is very crude, but effective for usual cases.
+
+Allowed options are:
+
+=over
+
+=item base
+
+Override the base tag by removing the original and inserting a new one just inside the C<< <head> >> tag with the given value as the href target.
+This feature is cludgy (as is this whole helper), consider it experimental, its behavior may change.
+
+=back
 
 =head1 SOURCE REPOSITORY
 
