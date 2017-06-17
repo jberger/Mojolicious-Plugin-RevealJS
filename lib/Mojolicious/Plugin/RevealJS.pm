@@ -155,6 +155,12 @@ See more on the L<"Reveal.js page"|https://github.com/hakimel/reveal.js#theming>
 
 title - sets the window title, not used on the title slide
 
+=item *
+
+base - sets the C<< <base> >> tag for the document.
+Useful for hosting static pages at a location other than C</>.
+Defaults to C</>, if explicitly set to C<undef> the tag is not included.
+
 =back
 
 =head3 initialization parameters

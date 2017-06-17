@@ -22,7 +22,7 @@ It provides a layout (C<revealjs>) which contains the boilerplate and loads the 
 It also provides a few simple helpers.
 Future versions of the plugin will allow setting of configuration like themes.
 
-The bundled version of Reveal.js is currently 3.0.0.
+The bundled version of Reveal.js is currently 3.5.0.
 
 Note that this module is in an alpha form!
 The author makes no compatibilty promises.
@@ -70,6 +70,12 @@ See more on the L<"Reveal.js page"|https://github.com/hakimel/reveal.js#theming>
 =item *
 
 title - sets the window title, not used on the title slide
+
+=item *
+
+base - sets the C<< <base> >> tag for the document.
+Useful for hosting static pages at a location other than C</>.
+Defaults to C</>, if explicitly set to C<undef> the tag is not included.
 
 =back
 
