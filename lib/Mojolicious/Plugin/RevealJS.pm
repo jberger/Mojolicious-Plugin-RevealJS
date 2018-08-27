@@ -123,7 +123,7 @@ It provides a layout (C<revealjs>) which contains the boilerplate and loads the 
 It also provides a few simple helpers.
 Future versions of the plugin will allow setting of configuration like themes.
 
-The bundled version of Reveal.js is currently 3.5.0.
+The bundled version of Reveal.js is currently 3.7.0.
 
 Note that this module is in an alpha form!
 The author makes no compatibilty promises.
