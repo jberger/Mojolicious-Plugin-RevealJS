@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 
 use 5.12.0;
 
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 $VERSION = eval $VERSION;
 
 use Mojo::Home;
@@ -54,8 +54,13 @@ sub _include_code {
     <pre><code class="<%= $lang %>" data-trim>
       <%= $text =%>
     </code></pre>
-    <p style="float: right; text-color: white; font-size: small;"><%= $file %></p>
+    % if (defined $file) {
+    <p class="filename" style="float: right; text-color: white; font-size: small;"><%= $file %></p>
+    % }
   INCLUDE
+
+  $filename = undef if exists $opts{include_filename} && !$opts{include_filename};
+
   my $html = $c->render_to_string(
     inline => $template,
     'revealjs.private.text' => $file,
@@ -277,6 +282,10 @@ sets the language for the highlighting, defaults to the value of C<< stash('lang
 =item section
 
 limits the section to a given section name
+
+=item include_filename
+
+if true (default) include the filename when the code is included
 
 =back
 

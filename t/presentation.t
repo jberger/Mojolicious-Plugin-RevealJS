@@ -32,11 +32,11 @@ $t->get_ok('/')
   ->element_exists('meta[name="description"][content="Everybody ❤️ Mojolicious"]')
   ->text_is('.reveal .slides section:nth-child(1) h1' => 'A Mojolicious Hello World!')
   ->text_like('.reveal .slides section:nth-child(2) pre code.perl' => qr/use Mojolicious::Lite;/)
-  ->text_is('.reveal .slides section:nth-child(2) p' => 'code/hello.pl')
-  ->text_is('.reveal .slides section:nth-child(3) p' => 'code/raw.html')
+  ->text_is('.reveal .slides section:nth-child(2) p.filename' => 'code/hello.pl')
+  ->text_is('.reveal .slides section:nth-child(3) p.filename' => 'code/raw.html')
   ->element_exists('.reveal .slides pre code.html', 'language class applied')
   ->element_exists_not('.reveal .slides pre code.html #raw', 'contents of included files are html escaped')
-  ->text_is('.reveal .slides section#section-test p' => 'code/section.pl')
+  ->text_is('.reveal .slides section#section-test p.filename' => 'code/section.pl')
   ->text_unlike('.reveal .slides section#section-test code' => qr/use/)
   ->text_like('.reveal .slides section#section-test code' => qr/\$this/)
   ->text_unlike('.reveal .slides section#section-test code' => qr/die/)
@@ -44,6 +44,7 @@ $t->get_ok('/')
   ->text_like('.reveal .slides section#no-section-test code' => qr/\$this/)
   ->text_like('.reveal .slides section#no-section-test code' => qr/die/)
   ->text_unlike('.reveal .slides section#no-section-test code' => qr/reveal/)
+  ->element_exists_not('.reveal .slides section#no-include-filename p.filename')
 ;
 
 $t->get_ok('/reveal/nested_route')
@@ -78,3 +79,6 @@ __DATA__
   %= include_code 'code/section.pl'
 </section>
 
+<section id="no-include-filename">
+  %= include_code 'code/section.pl', include_filename => 0
+</section>

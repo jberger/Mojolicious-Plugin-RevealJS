@@ -182,6 +182,10 @@ sets the language for the highlighting, defaults to the value of C<< stash('lang
 
 limits the section to a given section name
 
+=item include_filename
+
+if true (default) include the filename when the code is included
+
 =back
 
 NOTE: This feature is experimental!
