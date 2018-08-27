@@ -30,8 +30,16 @@ sub register {
     transition => 'slide', #none/fade/slide/convex/concave/zoom
   });
 
-  $app->helper('include_code' => \&_include_code);
   $app->helper('revealjs.export' => \&_export);
+
+  $app->helper(include_code => \&_include_code);
+  $app->helper(section => sub { shift->tag(section => @_) });
+  $app->helper(markdown_section => sub {
+    my ($c, @args) = @_;
+    return $c->tag(section => data => { markdown => undef } => sub {
+      return $c->tag(script => (type => 'text/template') => @args);
+    });
+  });
 }
 
 sub _include_code {
@@ -299,11 +307,30 @@ Then in the file
 
   Excluded content
 
-  # reveal being part1
+  # reveal begin part1
   Included content
   # reveal end part1
 
   Excluded content
+
+=head2 section
+
+  %= section begin
+  ...
+  % end
+
+A shortcut for creating a section tag.
+
+  %# longer form
+  %= tag section => ...
+
+=head2 markdown_section
+
+  %= markdown_section begin
+  ...
+  % end
+
+Build a section tag and script/template tag to properly use the built-in markdown handling within this slide.
 
 =head2 revealjs->export
 

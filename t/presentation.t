@@ -45,6 +45,7 @@ $t->get_ok('/')
   ->text_like('.reveal .slides section#no-section-test code' => qr/die/)
   ->text_unlike('.reveal .slides section#no-section-test code' => qr/reveal/)
   ->element_exists_not('.reveal .slides section#no-include-filename p.filename')
+  ->text_like('.reveal .slides section[data-markdown] script[type="text/template"]' => qr/An H2/)
 ;
 
 $t->get_ok('/reveal/nested_route')
@@ -59,9 +60,9 @@ __DATA__
 
 @@ hello_talk.html.ep
 
-<section>
+%= section begin
   <h1>A Mojolicious Hello World!</h1>
-</section>
+% end
 
 <section>
   %= include_code 'code/hello.pl'
@@ -82,3 +83,7 @@ __DATA__
 <section id="no-include-filename">
   %= include_code 'code/section.pl', include_filename => 0
 </section>
+
+%= markdown_section begin
+  ## An H2
+% end
