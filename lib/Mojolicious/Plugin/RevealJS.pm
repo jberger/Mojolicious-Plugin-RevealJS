@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 
 use 5.12.0;
 
-our $VERSION = '0.16';
+our $VERSION = '0.17';
 $VERSION = eval $VERSION;
 
 use Mojo::Home;
@@ -96,10 +96,10 @@ sub _include_sample {
     push @code, class => $lang;
   }
 
-  $data{sample} = $sample;
-  for my $key (qw/mark trim noescape/) {
-    $data{$key} = $opts{$key} if exists $opts{$key};
-  }
+  $data{sample}        = $sample;
+  $data{trim}          = $opts{trim}     if exists $opts{trim};
+  $data{noescape}      = $opts{noescape} if exists $opts{noescape};
+  $data{'sample-mark'} = $opts{mark}     if exists $opts{mark};
   push @code, data => \%data;
 
   my $anno_default = $sample;
