@@ -377,6 +377,7 @@ After the file url, the following trailing key-value pair options are available.
     inline   => $template,
     code     => \@code,
     annotation => exists $opts{annotation} ? $opts{annotation} : $anno_default,
+
 =over
 
 =item language
