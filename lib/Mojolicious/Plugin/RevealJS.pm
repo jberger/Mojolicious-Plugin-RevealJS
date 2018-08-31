@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 
 use 5.12.0;
 
-our $VERSION = '0.14';
+our $VERSION = '0.15';
 $VERSION = eval $VERSION;
 
 use Mojo::Home;
@@ -91,7 +91,10 @@ sub _include_sample {
 
   my (@code, %data);
   my $lang = $opts{language} // $opts{lang} // $c->stash('language');
-  push @code, class => $lang if defined $lang;
+  if (defined $lang) {
+    $lang = "lang-$lang" unless $lang =~ /^lang-/;
+    push @code, class => $lang;
+  }
 
   $data{sample} = $sample;
   for my $key (qw/mark trim noescape/) {
