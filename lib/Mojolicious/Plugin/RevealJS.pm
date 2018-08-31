@@ -365,18 +365,6 @@ Read more at L<https://github.com/ldionne/reveal-sampler>.
 
 After the file url, the following trailing key-value pair options are available.
 
-  for my $key (qw/mark trim noescape/) {
-    $data{$key} = $opts{$key} if exists $opts{$key};
-  }
-  push @code, data => \%data;
-
-  my $anno_default = $sample;
-  $anno_default =~ s/\#.*$//;
-
-  my $html = $c->render_to_string(
-    inline   => $template,
-    code     => \@code,
-    annotation => exists $opts{annotation} ? $opts{annotation} : $anno_default,
 =over
 
 =item language
@@ -403,7 +391,7 @@ Note that if the L</mark> option is used, the front-end will automatically apply
 
 A text line to be rendered below the code section.
 This is normally used to display the file name/path.
-If not explicitly given it will default to the url of the file.
+If not explicitly given it will default to the url of the file (without any fragment).
 If explicitly undefined, the annotation will not be rendered.
 
 =back
