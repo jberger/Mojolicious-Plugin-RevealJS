@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 
 use 5.12.0;
 
-our $VERSION = '0.18';
+our $VERSION = '0.19';
 $VERSION = eval $VERSION;
 
 use Mojo::Home;
@@ -166,7 +166,7 @@ It also provides a few simple helpers.
 Future versions of the plugin will allow setting of configuration like themes.
 
 The bundled version of Reveal.js is currently 3.7.0.
-The bundled version of reveal-sampler is currently b04a34e.
+The bundled version of reveal-sampler is currently cd4a07d.
 
 Note that this module is in an alpha form!
 The author makes no compatibilty promises.
