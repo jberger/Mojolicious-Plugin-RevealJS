@@ -96,10 +96,11 @@ sub _include_sample {
     push @code, class => $lang;
   }
 
-  $data{sample}        = $sample;
-  $data{trim}          = $opts{trim}     if exists $opts{trim};
-  $data{noescape}      = $opts{noescape} if exists $opts{noescape};
-  $data{'sample-mark'} = $opts{mark}     if exists $opts{mark};
+  $data{sample}          = $sample;
+  $data{trim}            = $opts{trim}     if exists $opts{trim};
+  $data{noescape}        = $opts{noescape} if exists $opts{noescape};
+  $data{'sample-mark'}   = $opts{mark}     if exists $opts{mark};
+  $data{'sample-indent'} = $opts{indent}   if exists $opts{indent};
   push @code, data => \%data;
 
   my $anno_default = $sample;
@@ -382,6 +383,16 @@ If this is not set, the client-side code will also attempt to set it based on th
 
 Sets lines to be marked by the client.
 This follows the documentation at L<https://github.com/ldionne/reveal-sampler>.
+
+=item indent
+
+Instructs reveal-sampler to "keep" or "remove" any overall indentation in the sample.
+This follows the documentation at L<https://github.com/ldionne/reveal-sampler>.
+
+Note that the default behavior (for when "indent" is not set) can be set in L</init>.
+The default (from the plugin itself), is false.
+
+  $c->stash( init => { sampler => { removeIndentation => \1 } } );
 
 =item trim
 

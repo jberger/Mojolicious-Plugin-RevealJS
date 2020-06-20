@@ -60,7 +60,7 @@ $t->get_ok('/')
   # reveal-sampler
   ->element_exists('.reveal .slides section#sample pre code[data-sample="code/section.pl"]')
   ->text_is('.reveal .slides section#sample p.sample-annotation' => 'code/section.pl')
-  ->element_exists('.reveal .slides section#sample-all pre code[data-sample="code/section.pl"][data-sample-mark="3"][data-noescape][data-trim]')
+  ->element_exists('.reveal .slides section#sample-all pre code[data-sample="code/section.pl"][data-sample-mark="3"][data-noescape][data-trim][data-sample-indent="remove"]')
   ->text_is('.reveal .slides section#sample-all p.sample-annotation' => 'my annotation')
   ->element_exists('.reveal .slides section#sample-no-anno pre code[data-sample="code/section.pl"]')
   ->element_exists_not('.reveal .slides section#sample-no-anno p.sample-annotation')
@@ -116,7 +116,7 @@ __DATA__
 </section>
 
 <section id="sample-all">
-  %= include_sample 'code/section.pl', mark => 3, noescape => 1, trim => 1, annotation => 'my annotation'
+  %= include_sample 'code/section.pl', mark => 3, noescape => 1, trim => 1, annotation => 'my annotation', indent => 'remove'
 </section>
 
 <section id="sample-no-anno">

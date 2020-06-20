@@ -240,6 +240,16 @@ If this is not set, the client-side code will also attempt to set it based on th
 Sets lines to be marked by the client.
 This follows the documentation at L<https://github.com/ldionne/reveal-sampler>.
 
+=item indent
+
+Instructs reveal-sampler to "keep" or "remove" any overall indentation in the sample.
+This follows the documentation at L<https://github.com/ldionne/reveal-sampler>.
+
+Note that the default behavior (for when "indent" is not set) can be set in L</init>.
+The default (from the plugin itself), is false.
+
+  $c->stash( init => { sampler => { removeIndentation => \1 } } );
+
 =item trim
 
 Sets the C<data-trim> attribute for revealjs.
