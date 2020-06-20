@@ -145,7 +145,8 @@
     // and remove it from all lines.
     var removeIndentationFromLines = function(code) {
         var indent, indentPattern;
-        var indentMatch = code.match(/^[ \t]+/mg);
+        //XXX https://github.com/ldionne/reveal-sampler/pull/14
+        var indentMatch = code.match(/^[ \t]*(?=\S)/mg);
         if (indentMatch) {
             indent = indentMatch.reduce(
                 function(previousValue, currentValue) {
