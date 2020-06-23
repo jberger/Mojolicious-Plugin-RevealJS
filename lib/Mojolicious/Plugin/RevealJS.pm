@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 
 use 5.12.0;
 
-our $VERSION = '0.20';
+our $VERSION = '0.21';
 $VERSION = eval $VERSION;
 
 use Mojo::Home;
@@ -60,12 +60,14 @@ sub _include_code {
     % my $text = stash 'revealjs.private.text';
     % my $file = stash 'revealjs.private.file';
     % my $lang = stash 'revealjs.private.lang';
-    <pre><code class="<%= $lang %>" data-trim>
-      <%= $text =%>
-    </code></pre>
-    % if (defined $file) {
-    <p class="filename" style="float: right; text-color: white; font-size: small;"><%= $file %></p>
-    % }
+    <div class="mojo include-code">
+      <pre><code class="<%= $lang %>" data-trim>
+        <%= $text =%>
+      </code></pre>
+      % if (defined $file) {
+      <p class="filename mojo sample-annotation" style="float: right; text-color: white; font-size: small;"><%= $file %></p>
+      % }
+    </div>
   INCLUDE
 
   $filename = undef if exists $opts{include_filename} && !$opts{include_filename};
@@ -83,10 +85,12 @@ sub _include_code {
 sub _include_sample {
   my ($c, $sample, %opts) = @_;
   my $template = <<'  INCLUDE';
-    <pre><%= t code => @$code %></pre>
-    % if (defined $annotation) {
-    <p class="sample-annotation" style="float: right; text-color: white; font-size: small;"><%= $annotation %></p>
-    % }
+    <div class="mojo include-code">
+      <pre><%= t code => @$code %></pre>
+      % if (defined $annotation) {
+      <p class="mojo sample-annotation" style="float: right; text-color: white; font-size: small;"><%= $annotation %></p>
+      % }
+    </div>
   INCLUDE
 
   my (@code, %data);

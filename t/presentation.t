@@ -58,11 +58,11 @@ $t->get_ok('/')
   ->text_like('.reveal .slides section[data-markdown] script[type="text/template"]' => qr/An H2/)
 
   # reveal-sampler
-  ->element_exists('.reveal .slides section#sample pre code[data-sample="code/section.pl"]')
-  ->text_is('.reveal .slides section#sample p.sample-annotation' => 'code/section.pl')
-  ->element_exists('.reveal .slides section#sample-all pre code[data-sample="code/section.pl"][data-sample-mark="3"][data-noescape][data-trim][data-sample-indent="remove"]')
-  ->text_is('.reveal .slides section#sample-all p.sample-annotation' => 'my annotation')
-  ->element_exists('.reveal .slides section#sample-no-anno pre code[data-sample="code/section.pl"]')
+  ->element_exists('.reveal .slides section#sample div.mojo.include-code pre code[data-sample="code/section.pl"]')
+  ->text_is('.reveal .slides section#sample div.mojo.include-code p.mojo.sample-annotation' => 'code/section.pl')
+  ->element_exists('.reveal .slides section#sample-all div.mojo.include-code pre code[data-sample="code/section.pl"][data-sample-mark="3"][data-noescape][data-trim][data-sample-indent="remove"]')
+  ->text_is('.reveal .slides section#sample-all div.mojo.include-code p.mojo.sample-annotation' => 'my annotation')
+  ->element_exists('.reveal .slides section#sample-no-anno div.mojo.include-code pre code[data-sample="code/section.pl"]')
   ->element_exists_not('.reveal .slides section#sample-no-anno p.sample-annotation')
 ;
 
